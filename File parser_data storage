@@ -1,0 +1,29 @@
+Reading a text files from the specified path and each text file contains text data which is splitting into words based on space as delimiter. The following code will generate word list and as well as ham-spam data dictionary.
+import os
+import math
+#The following function is used to read text file and split line based on space
+def parsing_file(path):
+    word_list=[]
+    f= open(path,encoding='utf-8',errors='ignore')
+    for l in f:
+        for aux in l.split():
+            word_list.append(aux)
+    return word_list
+
+#Storing ham and spam words in the dictionary based on key
+def ham_spam_data_store():
+    spam_ham_dict = {'ham': [], 'spam': []}
+    count={"ham":0,"spam":0}
+    for fN1 in os.listdir(os.getcwd() + "/test/ham" ):
+        wds = parsing_file(os.getcwd() +  "/test/ham/" + fN1)
+        if len(wds) > 0:
+            spam_ham_dict['ham'].append(wds)
+        count['ham'] += 1
+    for fN2 in os.listdir(os.getcwd() + "/test/spam"):
+        words = parsing_file(os.getcwd() + "/test/spam/" + fN2)
+        if len(words) > 0:
+            spam_ham_dict['spam'].append(words)
+        count['spam'] += 1
+    return spam_ham_dict
+spam_ham_dict=ham_spam_data_store()
+print(spam_ham_dict)
